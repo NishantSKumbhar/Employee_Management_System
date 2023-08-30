@@ -1,4 +1,7 @@
 using CRUD_Employee.Models;
+using CRUD_Employee.Services.Contract;
+using CRUD_Employee.Services.Implementation;
+using CRUD_Employee.Utilities;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -15,6 +18,11 @@ builder.Services.AddDbContext<DBEmployeeContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection"));
 });
+
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 var app = builder.Build();
 
